@@ -3,6 +3,7 @@ import { listTutors, setTutorStatus } from '../api/adminClient';
 import type { Tutor } from '../api/adminClient';
 import { EmbedSnippet } from './EmbedSnippet';
 import { LoginForm } from './LoginForm';
+import { TutorEditForm } from './TutorEditForm';
 import { TutorForm } from './TutorForm';
 import { TutorList } from './TutorList';
 
@@ -15,6 +16,7 @@ export function AdminPage() {
   const [token, setToken] = useState<string | null>(null);
   const [tutors, setTutors] = useState<Tutor[]>([]);
   const [selectedTutorId, setSelectedTutorId] = useState<string | null>(null);
+  const [editingTutor, setEditingTutor] = useState<Tutor | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const refreshTutors = useCallback(async (currentToken: string) => {
@@ -58,6 +60,18 @@ export function AdminPage() {
       <h1>Tutores</h1>
       {loadError && <p role="alert">{loadError}</p>}
       <TutorForm token={token} onCreated={() => void refreshTutors(token)} />
+      {editingTutor && (
+        <TutorEditForm
+          key={editingTutor.id}
+          token={token}
+          tutor={editingTutor}
+          onSaved={() => {
+            setEditingTutor(null);
+            void refreshTutors(token);
+          }}
+          onCancel={() => setEditingTutor(null)}
+        />
+      )}
       <TutorList
         tutors={tutors}
         onToggleStatus={(tutor) => {
@@ -68,6 +82,7 @@ export function AdminPage() {
           ).then(() => refreshTutors(token));
         }}
         onViewSnippet={setSelectedTutorId}
+        onEdit={setEditingTutor}
       />
       {selectedTutorId && (
         <EmbedSnippet key={selectedTutorId} token={token} tutorId={selectedTutorId} />

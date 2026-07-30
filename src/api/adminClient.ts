@@ -76,6 +76,26 @@ export async function setTutorStatus(
   return parseJsonOrThrow<Tutor>(response);
 }
 
+export interface UpdateTutorInput {
+  title: string;
+  instructions: string;
+  allowed_origins: string[];
+  sources: Source[];
+}
+
+export async function updateTutor(
+  token: string,
+  tutorId: string,
+  payload: UpdateTutorInput,
+): Promise<Tutor> {
+  const response = await fetch(`${API_BASE_URL}/admin/tutors/${tutorId}`, {
+    method: 'PUT',
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+  return parseJsonOrThrow<Tutor>(response);
+}
+
 export interface EmbedSnippet {
   tutor_id: string;
   iframe_src: string;

@@ -4,9 +4,10 @@ interface TutorListProps {
   tutors: Tutor[];
   onToggleStatus: (tutor: Tutor) => void;
   onViewSnippet: (tutorId: string) => void;
+  onEdit: (tutor: Tutor) => void;
 }
 
-export function TutorList({ tutors, onToggleStatus, onViewSnippet }: TutorListProps) {
+export function TutorList({ tutors, onToggleStatus, onViewSnippet, onEdit }: TutorListProps) {
   if (tutors.length === 0) {
     return <p>Nenhum tutor cadastrado ainda.</p>;
   }
@@ -16,6 +17,9 @@ export function TutorList({ tutors, onToggleStatus, onViewSnippet }: TutorListPr
       {tutors.map((tutor) => (
         <li key={tutor.id}>
           <strong>{tutor.title}</strong> ({tutor.status})
+          <button type="button" onClick={() => onEdit(tutor)}>
+            Editar
+          </button>
           <button type="button" onClick={() => onToggleStatus(tutor)}>
             {tutor.status === 'active' ? 'Desativar' : 'Ativar'}
           </button>

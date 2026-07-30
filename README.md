@@ -6,7 +6,7 @@ Widget de chat embutível via `<iframe>` + painel admin mínimo, para o desafio 
 
 ## Duas rotas, dois públicos
 
-- **`/admin`** — painel simples (login com JWT admin, sem persistência de token em `localStorage` — só em memória, perdido ao dar F5, trade-off deliberado de segurança) para criar/listar/(des)ativar tutores e gerar o snippet de embed.
+- **`/admin`** — painel simples (login com JWT admin, sem persistência de token em `localStorage` — só em memória, perdido ao dar F5, trade-off deliberado de segurança) para criar/listar/editar/(des)ativar tutores e gerar o snippet de embed.
 - **`/embed/:tutorId`** — a única página carregada dentro do `<iframe>` do site integrador. Obtém seu próprio token de embed ao carregar (rota pública, escopada ao tutor — ver `../backend/app/api/embed_routes.py`) e mantém a sessão de chat.
 
 ## Stack
@@ -37,7 +37,7 @@ O backend (`../backend`) precisa estar rodando (`docker compose up` ou `uvicorn 
 ## Testes
 
 ```bash
-npm run test          # Vitest, 24 testes
+npm run test          # Vitest, 27 testes
 npm run lint           # ESLint
 npm run format:check   # Prettier
 npm run build           # typecheck (tsc) + bundle de produção
@@ -48,6 +48,6 @@ Cobertura: cliente de API (`fetchEmbedToken`/`sendChatMessage`/`login`/CRUD de t
 ## Limitações conhecidas do MVP
 
 - JWT admin só em memória — F5 no painel exige login de novo (trade-off deliberado, evita persistir um token sensível em `localStorage`).
-- Formulário de criação de tutor no painel aceita no máximo **uma** fonte (URL) por criação — o backend suporta múltiplas; para cadastrar mais, usar a API diretamente (`POST /admin/tutors`).
+- Formulário de criação/edição de tutor no painel aceita no máximo **uma** fonte (URL) por vez — o backend suporta múltiplas; para cadastrar/editar mais de uma, usar a API diretamente (`POST`/`PUT /admin/tutors`). Fontes extras existentes não são apagadas ao editar por esse formulário.
 - Sem enforcement client-side de "quem pode embutir o iframe" — isso é responsabilidade do backend (`Content-Security-Policy: frame-ancestors`, não implementado neste MVP, ver `../backend/docs/arquitetura.md`).
 - Resposta do chat depende do backend ter `OPENAI_API_KEY` configurada; sem ela, o widget mostra o erro genérico tratado ("Não foi possível enviar sua mensagem"), comportamento verificado manualmente.
