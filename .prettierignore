@@ -1,0 +1,6 @@
+node_modules
+dist
+docs
+.claude
+CLAUDE.md
+CLAUDE_GERAL.md
