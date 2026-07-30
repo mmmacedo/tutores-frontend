@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Harness de teste — embed em iframe real</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+      }
+      iframe {
+        width: 400px;
+        height: 600px;
+        border: 2px solid #2563eb;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Site "de terceiro" simulado</h1>
+    <p>
+      Este arquivo não faz parte do app React — é o harness manual pedido em
+      <code>frontend/CLAUDE.md</code> pra confirmar que o widget carrega dentro de um
+      <code>&lt;iframe&gt;</code> real (não só em teste automatizado). Abrir direto
+      (<code>file://</code>) ou servir estático; ajuste o <code>tutorId</code> na URL abaixo pelo id
+      de um tutor criado no backend.
+    </p>
+    <iframe src="http://localhost:5173/embed/SUBSTITUA_PELO_TUTOR_ID" title="Widget do tutor">
+    </iframe>
+  </body>
+</html>
