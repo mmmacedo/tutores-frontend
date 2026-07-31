@@ -1,46 +1,46 @@
 # Arquitetura — visão geral
 
 ```
-                     ┌───────────────────────────────┐
+                     ┌─────────────────────────────────┐
                      │        Site integrador          │
-                     │  <iframe src=".../embed/:id">  │
+                     │  <iframe src=".../embed/:id">   │
                      └───────────────┬─────────────────┘
                                      │ HTTPS
                                      ▼
-                     ┌───────────────────────────────┐
+                     ┌─────────────────────────────────┐
                      │   tutores-frontend (Vite/React) │
-                     │  /embed/:tutorId  /admin         │
+                     │  /embed/:tutorId  /admin        │
                      └───────────────┬─────────────────┘
                                      │ REST (token de embed / JWT admin)
                                      ▼
-        ┌───────────────────────────────────────────────────────┐
-        │                tutores-backend (FastAPI)                │
-        │  ┌───────────────┐  ┌───────────────┐  ┌────────────┐ │
-        │  │ admin_routes    │  │ embed_routes   │  │ chat_routes  │ │
-        │  └───────┬───────┘  └───────┬───────┘  └──────┬─────┘ │
-        │          │ CRUD              │ token             │ mensagem │
-        │          ▼                    ▼                    ▼        │
-        │  ┌─────────────────────────────────────────────────────┐  │
-        │  │           agent/tutor_agent.py (LangChain)             │  │
-        │  │  system_prompt (por tutor) + tools:                     │  │
-        │  │   - fetch_source(source_name)                             │  │
-        │  │   - search_in_sources(query)                              │  │
-        │  │   - summarize_source(source_name)                        │  │
-        │  └───────────────────────┬─────────────────────────────┘  │
-        │                          │ conteúdo envolto em                │
-        │                          │ <fonte_externa_nao_confiavel>      │
-        │                          ▼                                     │
-        │              ┌─────────────────────┐                          │
+        ┌──────────────────────────────────────────────────────────────────┐
+        │                tutores-backend (FastAPI)                         │
+        │  ┌───────────────┐  ┌───────────────┐  ┌─────────────┐           │
+        │  │ admin_routes  │  │ embed_routes  │  │ chat_routes │           │
+        │  └───────┬───────┘  └───────┬───────┘  └──────┬──────┘           │
+        │          │ CRUD             │ token           │ mensagem         │
+        │          ▼                  ▼                 ▼                  │
+        │  ┌─────────────────────────────────────────────────────┐         │
+        │  │           agent/tutor_agent.py (LangChain)          │         │
+        │  │  system_prompt (por tutor) + tools:                 │         │
+        │  │   - fetch_source(source_name)                       │         │
+        │  │   - search_in_sources(query)                        │         │
+        │  │   - summarize_source(source_name)                   │         │
+        │  └───────────────────────┬─────────────────────────────┘         │
+        │                          │ conteúdo envolto em                   │
+        │                          │ <fonte_externa_nao_confiavel>         │
+        │                          ▼                                       │
+        │              ┌────────────────────────┐                          │
         │              │  Fontes HTTP públicas  │  (URLs cadastradas       │
         │              │  configuradas p/ tutor │   pelo administrador)    │
-        │              └─────────────────────┘                          │
-        └───────────────────────────┬───────────────────────────────────┘
-                                     │
-                                     ▼
-                     ┌───────────────────────────────┐
+        │              └────────────────────────┘                          │
+        └───────────────────────────┬──────────────────────────────────────┘
+                                    │
+                                    ▼
+                     ┌─────────────────────────────────┐
                      │   PostgreSQL (docker-compose)   │
-                     │  Tutor / Source / Session / Msg  │
-                     └───────────────────────────────┘
+                     │  Tutor / Source / Session / Msg │
+                     └─────────────────────────────────┘
 ```
 
 ## Próximos passos caso o produto evolua para produção (não implementar agora)
