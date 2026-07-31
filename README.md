@@ -4,6 +4,10 @@ Widget de chat embutível via `<iframe>` + painel admin mínimo, para o desafio 
 
 > **Todo o código deste repositório foi gerado através de um agente de codificação (Claude Code), com revisão humana a cada etapa** — conforme exigido pelo PRD (seção 2, "Restrição de processo"). O histórico de commits reflete o processo iterativo: cada commit corresponde a uma etapa de um plano incremental (`feat(etapa-NN): ...`), incluindo correções de bugs reais encontrados em verificação manual (não só em testes automatizados) durante o desenvolvimento.
 
+## Decisões de arquitetura
+
+A tabela de decisões (LangChain, FastAPI, Postgres, Vite+React, HTTP sem WebSocket, JWT admin, token de embed) é a da seção 3 do `CLAUDE.md` raiz — fonte da verdade, não redebatida aqui. Trade-offs específicos deste repositório: JWT admin guardado só em memória (nunca `localStorage`) e formulário do painel limitado a uma fonte por vez — ambos detalhados em "Limitações conhecidas do MVP" abaixo.
+
 ## Duas rotas, dois públicos
 
 - **`/admin`** — painel simples (login com JWT admin, sem persistência de token em `localStorage` — só em memória, perdido ao dar F5, trade-off deliberado de segurança) para criar/listar/editar/(des)ativar tutores e gerar o snippet de embed.

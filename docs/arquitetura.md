@@ -23,9 +23,9 @@
         │  ┌─────────────────────────────────────────────────────┐  │
         │  │           agent/tutor_agent.py (LangChain)             │  │
         │  │  system_prompt (por tutor) + tools:                     │  │
-        │  │   - fetch_source(url)                                     │  │
+        │  │   - fetch_source(source_name)                             │  │
         │  │   - search_in_sources(query)                              │  │
-        │  │   - summarize_source(source_id)                          │  │
+        │  │   - summarize_source(source_name)                        │  │
         │  └───────────────────────┬─────────────────────────────┘  │
         │                          │ conteúdo envolto em                │
         │                          │ <fonte_externa_nao_confiavel>      │
@@ -51,3 +51,6 @@
 4. Suporte a streaming de resposta (SSE/WebSocket) para melhorar percepção de latência.
 5. Revisão de conteúdo (moderação) na saída do agente antes de retornar ao usuário final.
 6. Política de retenção/expurgo do histórico de conversas (hoje persistido indefinidamente).
+7. `Content-Security-Policy: frame-ancestors` por tutor ao servir a página de embed — restringiria de verdade *quem pode embutir o iframe* (hoje `Tutor.allowed_origins` é só um dado armazenado, sem enforcement; ver `docs/decisoes-arquitetura.md`). Exigiria um servidor capaz de variar headers por rota, não uma SPA estática.
+8. Rate limit compartilhado entre réplicas (Redis) em vez de em memória do processo único.
+9. Tabela de usuários admin (hoje é uma única credencial via `.env`).
