@@ -10,7 +10,11 @@ export function EmbedPage() {
   const { tutorId } = useParams<{ tutorId: string }>();
 
   if (!tutorId) {
-    return <p>Tutor não especificado.</p>;
+    return (
+      <main className="board" aria-label="Chat com o tutor">
+        <p className="board__status">Tutor não especificado.</p>
+      </main>
+    );
   }
 
   return <ChatWidget tutorId={tutorId} />;

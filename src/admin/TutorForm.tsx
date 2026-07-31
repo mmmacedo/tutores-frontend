@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { createTutor } from '../api/adminClient';
 import type { Tutor } from '../api/adminClient';
+import './admin.css';
 
 interface TutorFormProps {
   token: string;
@@ -49,12 +50,12 @@ export function TutorForm({ token, onCreated }: TutorFormProps) {
 
   return (
     <form onSubmit={(event) => void handleSubmit(event)}>
-      <h2>Novo tutor</h2>
-      <label>
+      <h2 id="new-tutor-heading">Novo tutor</h2>
+      <label className="field">
         Título
         <input value={title} onChange={(event) => setTitle(event.target.value)} required />
       </label>
-      <label>
+      <label className="field">
         Instruções
         <textarea
           value={instructions}
@@ -62,7 +63,7 @@ export function TutorForm({ token, onCreated }: TutorFormProps) {
           required
         />
       </label>
-      <label>
+      <label className="field">
         Origens permitidas (separadas por vírgula)
         <input
           value={allowedOrigins}
@@ -70,18 +71,18 @@ export function TutorForm({ token, onCreated }: TutorFormProps) {
           placeholder="https://cliente.example.com"
         />
       </label>
-      <fieldset>
+      <fieldset className="source-fieldset">
         <legend>Fonte opcional (URL)</legend>
-        <label>
+        <label className="field">
           Nome
           <input value={sourceName} onChange={(event) => setSourceName(event.target.value)} />
         </label>
-        <label>
+        <label className="field">
           URL
           <input value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} />
         </label>
       </fieldset>
-      <button type="submit" disabled={submitting}>
+      <button type="submit" className="button" disabled={submitting}>
         Criar tutor
       </button>
       {error && <p role="alert">{error}</p>}

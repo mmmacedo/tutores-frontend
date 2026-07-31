@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getEmbedSnippet } from '../api/adminClient';
+import './admin.css';
 
 interface EmbedSnippetProps {
   token: string;
@@ -29,15 +30,21 @@ export function EmbedSnippet({ token, tutorId }: EmbedSnippetProps) {
   }, [token, tutorId]);
 
   if (error) return <p role="alert">{error}</p>;
-  if (!snippet) return <p>Carregando snippet…</p>;
+  if (!snippet) return <p className="empty-row">Carregando snippet…</p>;
 
   return (
     <div>
-      <h3>Snippet de integração</h3>
-      <textarea readOnly value={snippet} rows={3} />
-      <button type="button" onClick={() => void navigator.clipboard.writeText(snippet)}>
-        Copiar
-      </button>
+      <h3 id="snippet-heading">Snippet de integração</h3>
+      <textarea className="snippet-code" readOnly value={snippet} rows={3} />
+      <div className="button-row">
+        <button
+          type="button"
+          className="button"
+          onClick={() => void navigator.clipboard.writeText(snippet)}
+        >
+          Copiar
+        </button>
+      </div>
     </div>
   );
 }

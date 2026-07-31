@@ -24,28 +24,39 @@ export function ChatWidget({ tutorId }: ChatWidgetProps) {
   };
 
   return (
-    <div className="chat-widget">
-      <div className="chat-widget__messages">
+    <section className="board" aria-label="Chat com o tutor">
+      <header className="board__header">
+        <span className="board__lamp" data-state={status} aria-hidden="true" />
+        <p className="board__route">Tutor</p>
+      </header>
+
+      <ul className="board__rows" aria-live="polite">
         {messages.map((message, index) => (
-          <div key={index} className={`chat-widget__message chat-widget__message--${message.role}`}>
-            {message.content}
-          </div>
+          <li key={index} className={`board__row board__row--${message.role}`}>
+            <p className="board__row-text">{message.content}</p>
+          </li>
         ))}
         {status === 'connecting' && messages.length === 0 && (
-          <div className="chat-widget__status">Conectando ao tutor…</div>
+          <li className="board__status" aria-hidden="false">
+            Conectando ao tutor…
+          </li>
         )}
-      </div>
+      </ul>
 
       {status === 'error' && (
-        <div className="chat-widget__error">
+        <div className="board__alert" role="alert">
           <span>{errorMessage ?? 'Tutor indisponível.'}</span>
-          <button type="button" onClick={() => void retryConnection()}>
+          <button
+            type="button"
+            className="board__alert-retry"
+            onClick={() => void retryConnection()}
+          >
             Tentar novamente
           </button>
         </div>
       )}
 
-      <div className="chat-widget__composer">
+      <div className="board__composer">
         <input
           value={draft}
           onChange={(event) => setDraft(event.target.value)}
@@ -53,12 +64,13 @@ export function ChatWidget({ tutorId }: ChatWidgetProps) {
             if (event.key === 'Enter') handleSend();
           }}
           placeholder="Digite sua mensagem…"
+          aria-label="Mensagem"
           disabled={status === 'connecting'}
         />
         <button type="button" onClick={handleSend} disabled={!canSend}>
           Enviar
         </button>
       </div>
-    </div>
+    </section>
   );
 }

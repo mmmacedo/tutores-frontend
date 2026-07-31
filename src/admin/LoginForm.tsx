@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { login } from '../api/adminClient';
+import './admin.css';
 
 interface LoginFormProps {
   onLoggedIn: (token: string) => void;
@@ -27,25 +28,27 @@ export function LoginForm({ onLoggedIn }: LoginFormProps) {
   };
 
   return (
-    <form onSubmit={(event) => void handleSubmit(event)}>
-      <h1>Painel admin</h1>
-      <label>
-        Usuário
-        <input value={username} onChange={(event) => setUsername(event.target.value)} required />
-      </label>
-      <label>
-        Senha
-        <input
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-      </label>
-      <button type="submit" disabled={submitting}>
-        Entrar
-      </button>
-      {error && <p role="alert">{error}</p>}
-    </form>
+    <main className="gate">
+      <form className="gate__panel" onSubmit={(event) => void handleSubmit(event)}>
+        <h1>Painel admin</h1>
+        <label className="field">
+          Usuário
+          <input value={username} onChange={(event) => setUsername(event.target.value)} required />
+        </label>
+        <label className="field">
+          Senha
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+        </label>
+        <button type="submit" className="button" disabled={submitting}>
+          Entrar
+        </button>
+        {error && <p role="alert">{error}</p>}
+      </form>
+    </main>
   );
 }

@@ -1,0 +1,325 @@
+/* Console do administrador — mesma linguagem de painel de estação do widget. */
+
+.console {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.console__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--board-line);
+  background: var(--board-bg-raised);
+}
+
+.console__brand {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--flap-fg-dim);
+  margin: 0;
+}
+
+.console__brand strong {
+  color: var(--amber);
+}
+
+.console__main {
+  flex: 1;
+  width: min(880px, 100%);
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.console__title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.console__title-row h1 {
+  font-size: 1.5rem;
+}
+
+.console__summary {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+/* Painéis (formulários, snippet) */
+
+.panel {
+  background: var(--board-bg-raised);
+  border: 1px solid var(--board-line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+}
+
+.panel h2,
+.panel h3 {
+  font-size: 1.0625rem;
+  margin-bottom: 0.85rem;
+}
+
+.panel--amendment {
+  border-left: 2px solid var(--amber);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.85rem;
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--flap-fg-dim);
+}
+
+.field input,
+.field textarea {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--flap-fg);
+  background: var(--board-bg-sunken);
+  border: 1px solid var(--board-line-strong);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.65rem;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+}
+
+.field input::placeholder {
+  color: var(--flap-fg-dim);
+}
+
+.source-fieldset {
+  border: 1px dashed var(--board-line-strong);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.85rem 0.1rem;
+  margin: 0 0 0.85rem;
+}
+
+.source-fieldset legend {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--flap-fg-dim);
+  padding: 0 0.3rem;
+}
+
+.button {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: none;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  background: var(--amber);
+  color: var(--amber-ink);
+}
+
+.button:disabled {
+  background: var(--board-line-strong);
+  color: var(--flap-fg-faint);
+  cursor: not-allowed;
+}
+
+.button--ghost {
+  background: transparent;
+  border: 1px solid var(--board-line-strong);
+  color: var(--flap-fg-dim);
+}
+
+.button--ghost:hover {
+  border-color: var(--flap-fg-dim);
+  color: var(--flap-fg);
+}
+
+.button-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+[role='alert'] {
+  margin-top: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius);
+  background: var(--red-dim-bg);
+  border: 1px solid var(--red-line);
+  color: var(--flap-fg);
+  font-size: 0.875rem;
+}
+
+/* Tabela de tutores */
+
+.roster {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.roster caption {
+  text-align: left;
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--flap-fg-dim);
+  padding-bottom: 0.5rem;
+}
+
+.roster th {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--flap-fg-dim);
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--board-line-strong);
+}
+
+.roster td {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--board-line);
+  vertical-align: middle;
+}
+
+.roster tbody tr:hover {
+  background: var(--board-bg-sunken);
+}
+
+.roster__title {
+  font-weight: 500;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.status-pill::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--flap-fg-faint);
+}
+
+.status-pill[data-status='active'] {
+  color: var(--amber);
+}
+
+.status-pill[data-status='active']::before {
+  background: var(--amber);
+  box-shadow: 0 0 5px var(--amber-line);
+}
+
+.status-pill[data-status='inactive'] {
+  color: var(--flap-fg-dim);
+}
+
+.roster__actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.roster__actions button {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--board-line-strong);
+  color: var(--flap-fg-dim);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.65rem;
+  min-height: 2.25rem;
+  cursor: pointer;
+}
+
+.roster__actions button:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.empty-row {
+  color: var(--flap-fg-dim);
+  font-style: normal;
+  padding: 1rem 0;
+}
+
+.snippet-code {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--amber);
+  background: var(--board-bg-sunken);
+  border: 1px solid var(--board-line-strong);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.75rem;
+  resize: vertical;
+}
+
+/* Tela de login */
+
+.gate {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.gate__panel {
+  width: min(360px, 100%);
+  background: var(--board-bg-raised);
+  border: 1px solid var(--board-line);
+  border-top: 2px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.gate__panel h1 {
+  font-size: 1.25rem;
+  margin-bottom: 1.1rem;
+}

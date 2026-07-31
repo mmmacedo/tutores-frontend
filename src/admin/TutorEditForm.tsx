@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { updateTutor } from '../api/adminClient';
 import type { Tutor } from '../api/adminClient';
+import './admin.css';
 
 interface TutorEditFormProps {
   token: string;
@@ -48,12 +49,12 @@ export function TutorEditForm({ token, tutor, onSaved, onCancel }: TutorEditForm
 
   return (
     <form onSubmit={(event) => void handleSubmit(event)}>
-      <h2>Editar tutor</h2>
-      <label>
+      <h2 id="edit-tutor-heading">Editar tutor</h2>
+      <label className="field">
         Título
         <input value={title} onChange={(event) => setTitle(event.target.value)} required />
       </label>
-      <label>
+      <label className="field">
         Instruções
         <textarea
           value={instructions}
@@ -61,7 +62,7 @@ export function TutorEditForm({ token, tutor, onSaved, onCancel }: TutorEditForm
           required
         />
       </label>
-      <label>
+      <label className="field">
         Origens permitidas (separadas por vírgula)
         <input
           value={allowedOrigins}
@@ -69,23 +70,30 @@ export function TutorEditForm({ token, tutor, onSaved, onCancel }: TutorEditForm
           placeholder="https://cliente.example.com"
         />
       </label>
-      <fieldset>
+      <fieldset className="source-fieldset">
         <legend>Fonte principal (URL)</legend>
-        <label>
+        <label className="field">
           Nome
           <input value={sourceName} onChange={(event) => setSourceName(event.target.value)} />
         </label>
-        <label>
+        <label className="field">
           URL
           <input value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} />
         </label>
       </fieldset>
-      <button type="submit" disabled={submitting}>
-        Salvar
-      </button>
-      <button type="button" onClick={onCancel} disabled={submitting}>
-        Cancelar
-      </button>
+      <div className="button-row">
+        <button type="submit" className="button" disabled={submitting}>
+          Salvar
+        </button>
+        <button
+          type="button"
+          className="button button--ghost"
+          onClick={onCancel}
+          disabled={submitting}
+        >
+          Cancelar
+        </button>
+      </div>
       {error && <p role="alert">{error}</p>}
     </form>
   );
